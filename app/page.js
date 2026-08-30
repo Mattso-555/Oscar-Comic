@@ -13,6 +13,8 @@ export default function Home() {
   const [comic, setComic] = useState(null);      // pages data
   const [toast, setToast] = useState(null);
   const [hydrated, setHydrated] = useState(false);
+  const [stories, setStories] = useState([]);
+  const [editItem, setEditItem] = useState(null);
 
   // load saved world once on mount
   useEffect(() => {
@@ -54,11 +56,8 @@ export default function Home() {
     setItems((prev) => prev.map((i) => (i.id === id ? { ...i, ...patch } : i)));
   }, []);
 
-  const [editItem, setEditItem] = useState(null);
   const startEdit = useCallback((item) => { setEditItem(item); setTab('draw'); }, []);
   const endEdit = useCallback(() => setEditItem(null), []);
-
-  const [stories, setStories] = useState([]);
   const addStory = useCallback((plan) => {
     setStories((prev) => [{ id: Date.now(), when: new Date().toISOString(), ...plan }, ...prev].slice(0, 20));
   }, []);
